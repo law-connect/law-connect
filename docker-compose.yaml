@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:latest
+    container_name: law-connect_db
+    environment:
+      POSTGRES_USER: law_connect
+      POSTGRES_PASSWORD: law_connect
+      POSTGRES_DB: law_connect
+    ports:
+      - 5432:5432
+    restart: on-failure
