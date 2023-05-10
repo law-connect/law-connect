@@ -10,7 +10,7 @@ export function Header() {
         <nav className="flex items-center">
           <Link href="/" className="py-3 px-4 text-3xl hover:bg-neutral-200">
             <Image
-              src="./logo-side.svg"
+              src="/assets/logo-side.svg"
               alt="Law Connect"
               width={250}
               height={50}

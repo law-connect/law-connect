@@ -8,15 +8,15 @@ type ButtonProps = {
   href?: string | UrlObject;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: "submit" | "reset" | "button" | undefined;
+  className: string;
 };
 
-export function Button(props: ButtonProps) {
+export function Button({ className, ...props }: ButtonProps) {
   const isAnchor = !!props.href;
   const style = {
-    filled:
-      "bg-brand-primary hover:opacity-90 text-white px-4 py-1 font-light grid place-content-center rounded-sm w-max",
-    outline: "",
-    ghost: "",
+    filled: `bg-brand-primary hover:opacity-90 text-white px-4 py-1 font-light grid place-content-center rounded-sm w-max ${className}`,
+    outline: `${className}`,
+    ghost: `${className}`,
   };
 
   return (

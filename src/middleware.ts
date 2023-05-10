@@ -1,7 +1,9 @@
 export { default } from "next-auth/middleware";
 
 export const config = {
-  matcher: ["/", "/profile", "/q/:questionId*"],
+  matcher: [
+    "/((?!auth/*|api|assets/*|_next/static|_next/image|favicon.ico).*)",
+  ],
   pages: {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
