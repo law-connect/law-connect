@@ -8,7 +8,7 @@ type ButtonProps = {
   href?: string | UrlObject;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: "submit" | "reset" | "button" | undefined;
-  className: string;
+  className?: string;
 };
 
 export function Button({ className, ...props }: ButtonProps) {
