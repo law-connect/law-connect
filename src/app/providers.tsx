@@ -8,6 +8,9 @@ export function Providers({ children }: React.PropsWithChildren<unknown>) {
       theme={{
         token: {
           colorPrimary: "#551227",
+          colorLink: "#551227",
+          colorLinkActive: "#80374E",
+          colorLinkHover: "#80374E",
           borderRadius: 2,
           borderRadiusSM: 2,
           borderRadiusLG: 2,

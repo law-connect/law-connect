@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+button.ant-btn-primary, [type='button'].ant-btn-primary, [type='reset'].ant-btn-primary, [type='submit'].ant-btn-primary {
+  background-color: #4e1727 !important;
+  box-shadow: none !important; 
+}

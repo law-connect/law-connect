@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button } from "../../../components/button";
 import { Input, message } from "antd";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SignInPage() {
   const [oab, setOab] = useState("");
@@ -47,7 +48,6 @@ export default function SignInPage() {
           <Input
             type="text"
             id="oab"
-            placeholder="12345"
             value={oab}
             onChange={(e) => setOab(e.target.value)}
             required
@@ -55,18 +55,25 @@ export default function SignInPage() {
         </div>
         <div>
           <label htmlFor="password">Senha</label>
-          <Input
-            type="password"
+          <Input.Password
             id="password"
-            placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
         <Button className="mt-4 mx-auto" type="submit">
-          Sign in
+          Entrar
         </Button>
+        <p className="text-sm mt-2 mx-auto">
+          Ainda não possui uma conta?{" "}
+          <Link
+            href="/auth/signup"
+            className="text-brand-primary hover:underline "
+          >
+            Registre-se.
+          </Link>
+        </p>
       </form>
     </main>
   );

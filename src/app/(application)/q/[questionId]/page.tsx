@@ -1,31 +1,32 @@
 "use client";
-import { Input, Skeleton } from "antd";
+import { DeleteFilled } from "@ant-design/icons";
+import { Answer, Question, Tag, User } from "@prisma/client";
+import {
+  Button as AntButton,
+  Input,
+  Popconfirm,
+  Skeleton,
+  Tooltip,
+} from "antd";
 import { formatRelative } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "../../../../components/button";
-import { Answer, Question, Tag, User } from "@prisma/client";
-
-async function fetchQuestion({ questionId }: { questionId: string }) {
-  const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/question/${questionId}`
-  );
-  return res.json();
-}
+import { useRouter } from "next/navigation";
 
 export default function QuestionPage({
   params,
 }: {
   params: { questionId: string };
 }) {
+  const { push } = useRouter();
   const [loading, setLoading] = useState(true);
   const [question, setQuestion] = useState(
     {} as Question & { answers: Answer[]; tags: Tag[]; author: User }
   );
 
-  const fetchQuestions = useCallback(async () => {
+  const fetchQuestion = useCallback(async () => {
     setLoading(true);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_URL}/api/question/${params.questionId}`
@@ -38,8 +39,8 @@ export default function QuestionPage({
   }, [params.questionId]);
 
   useEffect(() => {
-    fetchQuestions();
-  }, [fetchQuestions]);
+    fetchQuestion();
+  }, [fetchQuestion]);
 
   const answers = question?.answers;
 
@@ -62,7 +63,26 @@ export default function QuestionPage({
     });
 
     setContent("");
-    await fetchQuestions();
+    await fetchQuestion();
+  }
+
+  async function handleDeleteQuestion() {
+    await fetch(
+      `${process.env.NEXT_PUBLIC_URL}/api/question/${params.questionId}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    push("/");
+  }
+
+  async function handleDeleteAnswer(answerId: string) {
+    await fetch(`${process.env.NEXT_PUBLIC_URL}/api/answer/${answerId}`, {
+      method: "DELETE",
+    });
+
+    await fetchQuestion();
   }
 
   return (
@@ -107,7 +127,25 @@ export default function QuestionPage({
                   ))}
                 </div>
                 <p className="pb-6">{question.content}</p>
-                <div className="flex gap-2 justify-end mt-3">
+                <div className="flex gap-2 justify-between mt-3">
+                  {user?.id === question.authorId ? (
+                    <Popconfirm
+                      title="Tem certeza que deseja apagar sua pergunta?"
+                      description="Essa ação é irreversível"
+                      onConfirm={handleDeleteQuestion}
+                      onCancel={() => {}}
+                      okText="Apagar"
+                      cancelText="Cancelar"
+                    >
+                      <AntButton
+                        type="link"
+                        shape="circle"
+                        icon={<DeleteFilled />}
+                      />
+                    </Popconfirm>
+                  ) : (
+                    <div></div>
+                  )}
                   <div className="flex gap-1 items-center">
                     <span className="text-brand-primary">
                       {question.author.firstName} {question.author.lastName}
@@ -129,8 +167,26 @@ export default function QuestionPage({
                   className="py-6 px-10 border-b border-neutral-300"
                 >
                   <p className="pb-6">{answer.content}</p>
-                  <div className="flex gap-2 justify-end mt-3">
-                    <div className="flex gap-1">
+                  <div className="flex gap-2 justify-between mt-3">
+                    {user?.id === answer.authorId ? (
+                      <Popconfirm
+                        title="Tem certeza que deseja apagar sua resposta?"
+                        description="Essa ação é irreversível"
+                        onConfirm={() => handleDeleteAnswer(answer.id)}
+                        onCancel={() => {}}
+                        okText="Apagar"
+                        cancelText="Cancelar"
+                      >
+                        <AntButton
+                          type="link"
+                          shape="circle"
+                          icon={<DeleteFilled />}
+                        />
+                      </Popconfirm>
+                    ) : (
+                      <div></div>
+                    )}
+                    <div className="flex gap-1 items-center">
                       <span className="text-brand-primary">
                         {answer.author.firstName} {answer.author.lastName}
                       </span>
