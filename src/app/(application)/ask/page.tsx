@@ -1,6 +1,22 @@
-import { use } from "react";
+"use client";
+import { title } from "process";
 import { Button } from "../../../components/button";
 import { Input } from "../../../components/input";
+import { Select } from "antd";
+import type { SelectProps } from "antd";
+
+const options: SelectProps["options"] = [];
+
+for (let i = 10; i < 36; i++) {
+  options.push({
+    value: i.toString(36) + i,
+    label: i.toString(36) + i,
+  });
+}
+
+const handleChange = (value: string) => {
+  console.log(`selected ${value}`);
+};
 
 export default function AskPage() {
   return (
@@ -10,7 +26,26 @@ export default function AskPage() {
       </div>
       <div className="mt-6 grid gap-4">
         <Input id="title" label="Assunto" />
-        <Input id="tags" label="Tags" />
+        <div className="grid">
+          <label htmlFor="title">Título</label>
+          <Input
+            style={{ width: "100%" }}
+            onChange={(e) => console.log(e.target.value)}
+            value={title}
+            id="title"
+          />
+        </div>
+        <div className="grid">
+          <label htmlFor="tags">Tags</label>
+          <Select
+            mode="tags"
+            style={{ width: "100%" }}
+            onChange={handleChange}
+            tokenSeparators={[",", " "]}
+            options={options}
+            id="tags"
+          />
+        </div>
         <div className="grid">
           <label htmlFor="question">Pergunta</label>
           <textarea
