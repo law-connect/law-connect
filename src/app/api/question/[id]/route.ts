@@ -30,6 +30,7 @@ export async function DELETE(request: Request) {
   const id = pathname.split("/").pop();
 
   await prisma.tagOnQuestion.deleteMany({ where: { questionId: id! } });
+  await prisma.answer.deleteMany({ where: { questionId: id! } });
   await prisma.question.delete({ where: { id: id! } });
 
   return new Response(JSON.stringify({ success: true }), {
