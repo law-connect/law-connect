@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   const natalie = await prisma.user.upsert({
-    where: { oab: "00001" },
+    where: { oab: "12345" },
     create: {
       email: "natalie@lawconnect.com",
       oab: "12345",
@@ -16,7 +16,7 @@ async function main() {
     },
     update: {
       email: "natalie@lawconnect.com",
-      oab: "00001",
+      oab: "12345",
       password: await hash("12345", 10),
       firstName: "Natalie",
       lastName: "Macedo",
@@ -25,7 +25,7 @@ async function main() {
   });
 
   const alice = await prisma.user.upsert({
-    where: { oab: "00002" },
+    where: { oab: "12346" },
     create: {
       email: "alice@lawconnect.com",
       oab: "12346",
@@ -43,7 +43,7 @@ async function main() {
   });
 
   const bob = await prisma.user.upsert({
-    where: { oab: "00003" },
+    where: { oab: "12347" },
     create: {
       email: "bob@lawconnect.com",
       oab: "12347",
