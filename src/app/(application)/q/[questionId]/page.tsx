@@ -23,7 +23,7 @@ export default function QuestionPage({
       {question && (
         <>
           <div className="p-4 border border-neutral-300 flex justify-between gap-2 bg-neutral-100 rounded-sm">
-            <h2 className="text-3xl bold">{question.title}</h2>
+            <h1 className="text-3xl bold">{question.title}</h1>
           </div>
           <div className="py-6 px-10 border-b border-x border-neutral-300 bg-neutral-100 rounded-sm">
             <div className="flex gap-2 mb-6">
@@ -74,13 +74,16 @@ export default function QuestionPage({
           ))}
         </ul>
       )}
-      <textarea
-        className="bg-white border mt-20 px-2 py-1 border-neutral-300 rounded-sm outline outline-4 outline-transparent focus-within:border-neutral-500 focus-within:outline-neutral-200"
-        id="answer"
-        name="answer"
-        rows={8}
-      ></textarea>
-      <Button className="mt-2 ml-auto">Responder</Button>
+      <div className="mt-20 grid">
+        <h2 className="p-4 mb-4 text-3xl bold">Enviar Resposta</h2>
+        <textarea
+          className="bg-white border px-2 py-1 border-neutral-300 rounded-sm outline outline-4 outline-transparent focus-within:border-neutral-500 focus-within:outline-neutral-200"
+          id="answer"
+          name="answer"
+          rows={8}
+        ></textarea>
+        <Button className="mt-8 ml-auto">Responder</Button>
+      </div>
     </>
   );
 }

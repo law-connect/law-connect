@@ -41,8 +41,8 @@ export default function HomePage() {
   return (
     <>
       <div className="p-4 flex justify-between">
-        <h2 className="text-3xl bold">Perguntas Recentes</h2>
-        <Button href="/q/new">Nova Pergunta</Button>
+        <h1 className="text-3xl bold">Perguntas Recentes</h1>
+        <Button href="/ask">Nova Pergunta</Button>
       </div>
       <ul className="min-h-screen pb-10">
         {questions.map((question: Question) => (
