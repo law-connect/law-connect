@@ -1,7 +1,8 @@
-import { Tag } from "@prisma/client";
-import { use } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { Button } from "../../components/button";
 import { Question } from "../../components/question";
+import { Skeleton } from "antd";
 
 interface Question {
   id: string;
@@ -24,19 +25,21 @@ interface Question {
   }>;
 }
 
-async function fetchQuestions() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/question`);
-  return res.json();
-}
-
-async function fetchTags() {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/tag`);
-  return res.json();
-}
-
 export default function HomePage() {
-  const questions = use<Question[]>(fetchQuestions());
-  const tags = use<Tag[]>(fetchTags());
+  const [loading, setLoading] = useState(true);
+  const [questions, setQuestions] = useState<Question[]>([]);
+
+  useEffect(() => {
+    async function fetchQuestions() {
+      setLoading(true);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/question`);
+      const data = await res.json();
+      setQuestions(data);
+      setLoading(false);
+    }
+
+    fetchQuestions();
+  }, []);
 
   return (
     <>
@@ -44,13 +47,24 @@ export default function HomePage() {
         <h1 className="text-3xl bold">Perguntas Recentes</h1>
         <Button href="/ask">Nova Pergunta</Button>
       </div>
-      <ul className="min-h-screen pb-10">
-        {questions.map((question: Question) => (
-          <>
+      {loading ? (
+        <ul className="min-h-screen pb-10">
+          {[1, 2, 3, 4, 5].map((value: number) => (
+            <div
+              key={value}
+              className="border-t last:border-b border-collapse border-neutral-300 px-10 py-6"
+            >
+              <Skeleton active />
+            </div>
+          ))}
+        </ul>
+      ) : (
+        <ul className="min-h-screen pb-10">
+          {questions.map((question: Question) => (
             <Question key={question.id} question={question} />
-          </>
-        ))}
-      </ul>
+          ))}
+        </ul>
+      )}
     </>
   );
 }

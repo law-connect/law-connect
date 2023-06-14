@@ -2,6 +2,7 @@
 import { formatRelative } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import Link from "next/link";
+import { Tag } from "antd";
 
 interface QuestionProps {
   question: {
