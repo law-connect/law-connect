@@ -1,15 +1,13 @@
 import { prisma } from "@/lib/prisma";
 
 export async function GET(request: Request) {
-  const questions = await prisma.question.findMany({
+  const tags = await prisma.tag.findMany({
     include: {
-      tags: true,
-      author: true,
-      answers: true,
+      questions: true,
     },
   });
 
-  return new Response(JSON.stringify(questions), {
+  return new Response(JSON.stringify(tags), {
     status: 200,
     headers: {
       "content-type": "application/json",

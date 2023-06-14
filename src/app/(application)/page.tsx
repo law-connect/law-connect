@@ -1,26 +1,54 @@
-import { Question, TagOnQuestion } from "@prisma/client";
-import Link from "next/link";
+import { Tag } from "@prisma/client";
 import { use } from "react";
+import { Button } from "../../components/button";
+import { Question } from "../../components/question";
+
+interface Question {
+  id: string;
+  title: string;
+  score: number;
+  createdAt: string;
+  updatedAt: string;
+  tags: [
+    {
+      tagId: string;
+    }
+  ];
+  author: {
+    id: string;
+    firstName: string;
+    lastName: string;
+  };
+  answers: Array<{
+    id: string;
+  }>;
+}
 
 async function fetchQuestions() {
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/question`);
   return res.json();
 }
 
+async function fetchTags() {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/tag`);
+  return res.json();
+}
+
 export default function HomePage() {
-  const questions = use<
-    (Question & {
-      tags: TagOnQuestion[];
-    })[]
-  >(fetchQuestions());
+  const questions = use<Question[]>(fetchQuestions());
+  const tags = use<Tag[]>(fetchTags());
 
   return (
     <>
-      <ul>
-        {questions.map((question: any) => (
-          <li key={question.id}>
-            <Link href={`/q/${question.id}`}>{question.title}</Link>
-          </li>
+      <div className="p-4 flex justify-between">
+        <h2 className="text-3xl bold">Perguntas Recentes</h2>
+        <Button href="/q/new">Nova Pergunta</Button>
+      </div>
+      <ul className="min-h-screen pb-10">
+        {questions.map((question: Question) => (
+          <>
+            <Question key={question.id} question={question} />
+          </>
         ))}
       </ul>
     </>

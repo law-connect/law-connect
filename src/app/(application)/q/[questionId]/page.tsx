@@ -1,5 +1,7 @@
-import { prisma } from "@/lib/prisma";
+import { formatRelative } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { use } from "react";
+import { Button } from "../../../../components/button";
 
 async function fetchQuestion({ questionId }: { questionId: string }) {
   const res = await fetch(
@@ -14,28 +16,71 @@ export default function QuestionPage({
   params: { questionId: string };
 }) {
   const question = use(fetchQuestion({ questionId: params.questionId }));
-
   const answers = question?.answers;
 
   return (
     <>
       {question && (
         <>
-          <h1>{question.title}</h1>
-          <p>{question.content}</p>
-          <p>
-            {question.author.firstName} {question.author.lastName}
-          </p>
+          <div className="p-4 border border-neutral-300 flex justify-between gap-2 bg-neutral-100 rounded-sm">
+            <h2 className="text-3xl bold">{question.title}</h2>
+          </div>
+          <div className="py-6 px-10 border-b border-x border-neutral-300 bg-neutral-100 rounded-sm">
+            <div className="flex gap-2 mb-6">
+              {question.tags.map((tag: any) => (
+                <button
+                  key={tag.tagId}
+                  className="bg-brand-shadow text-brand-primary px-2 rounded-sm"
+                >
+                  {tag.tagId}
+                </button>
+              ))}
+            </div>
+            <p className="pb-6">{question.content}</p>
+            <div className="flex gap-2 justify-end mt-3">
+              <div className="flex gap-1 items-center">
+                <span className="text-brand-primary">
+                  {question.author.firstName} {question.author.lastName}
+                </span>
+                <span> · </span>
+                {formatRelative(new Date(question.createdAt), new Date(), {
+                  locale: ptBR,
+                })}
+              </div>
+            </div>
+          </div>
         </>
       )}
-      <ul>
-        {answers &&
-          answers.map((answer: any) => (
-            <li key={answer.id}>
-              <p>{answer.content}</p>
+      {answers && (
+        <ul>
+          {answers.map((answer: any) => (
+            <li
+              key={answer.id}
+              className="py-6 px-10 border-b border-neutral-300"
+            >
+              <p className="pb-6">{answer.content}</p>
+              <div className="flex gap-2 justify-end mt-3">
+                <div className="flex gap-1">
+                  <span className="text-brand-primary">
+                    {answer.author.firstName} {answer.author.lastName}
+                  </span>
+                  <span> · </span>
+                  {formatRelative(new Date(answer.createdAt), new Date(), {
+                    locale: ptBR,
+                  })}
+                </div>
+              </div>
             </li>
           ))}
-      </ul>
+        </ul>
+      )}
+      <textarea
+        className="bg-white border mt-20 px-2 py-1 border-neutral-300 rounded-sm outline outline-4 outline-transparent focus-within:border-neutral-500 focus-within:outline-neutral-200"
+        id="answer"
+        name="answer"
+        rows={8}
+      ></textarea>
+      <Button className="mt-2 ml-auto">Responder</Button>
     </>
   );
 }

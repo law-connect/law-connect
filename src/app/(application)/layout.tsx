@@ -6,7 +6,9 @@ export default function RootLayout({
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="grid place-center max-w-screen-lg m-auto py-20">
+        {children}
+      </main>
     </>
   );
 }
