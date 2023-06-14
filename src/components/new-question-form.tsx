@@ -1,9 +1,10 @@
 "use client";
+import { Editor } from "@tinymce/tinymce-react";
 import { Input, Select } from "antd";
-import { useState } from "react";
-import { Button } from "./button";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Button } from "./button";
 
 interface NewQuestionFormProps {
   existingTags: string[];
@@ -55,14 +56,22 @@ export function NewQuestionForm({ existingTags }: NewQuestionFormProps) {
       </div>
       <div className="grid">
         <label htmlFor="question">Pergunta</label>
-        <Input.TextArea
-          id="question"
-          name="question"
-          rows={8}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        />
+        <div className="border border-neutral-300 rounded-sm focus-within:border-brand-primary">
+          <Editor
+            apiKey={process.env.NEXT_PUBLIC_TINY_API}
+            initialValue={content}
+            init={{
+              branding: false,
+              skin: "borderless",
+              content_css: "borderless",
+              height: 400,
+              menubar: false,
+              toolbar:
+                "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+            }}
+            onChange={(e) => setContent(e.target.getContent())}
+          />
+        </div>
       </div>
       <Button type="submit" className="mt-4 ml-auto">
         Enviar Pergunta

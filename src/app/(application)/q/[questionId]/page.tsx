@@ -1,19 +1,14 @@
 "use client";
 import { DeleteFilled } from "@ant-design/icons";
 import { Answer, Question, Tag, User } from "@prisma/client";
-import {
-  Button as AntButton,
-  Input,
-  Popconfirm,
-  Skeleton,
-  Tooltip,
-} from "antd";
+import { Editor } from "@tinymce/tinymce-react";
+import { Button as AntButton, Popconfirm, Skeleton } from "antd";
 import { formatRelative } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "../../../../components/button";
-import { useRouter } from "next/navigation";
 
 export default function QuestionPage({
   params,
@@ -126,7 +121,10 @@ export default function QuestionPage({
                     </button>
                   ))}
                 </div>
-                <p className="pb-6">{question.content}</p>
+                <div
+                  className="pb-6"
+                  dangerouslySetInnerHTML={{ __html: question.content }}
+                />
                 <div className="flex gap-2 justify-between mt-3">
                   {user?.id === question.authorId ? (
                     <Popconfirm
@@ -166,7 +164,10 @@ export default function QuestionPage({
                   key={answer.id}
                   className="py-6 px-10 border-b border-neutral-300"
                 >
-                  <p className="pb-6">{answer.content}</p>
+                  <div
+                    className="pb-6"
+                    dangerouslySetInnerHTML={{ __html: answer.content }}
+                  />
                   <div className="flex gap-2 justify-between mt-3">
                     {user?.id === answer.authorId ? (
                       <Popconfirm
@@ -202,13 +203,23 @@ export default function QuestionPage({
           )}
           <form onSubmit={handleSubmit} className="mt-20 grid">
             <h2 className="p-4 mb-4 text-3xl bold">Responder</h2>
-            <Input.TextArea
-              id="answer"
-              name="question"
-              rows={8}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-            />
+            <div className="border border-neutral-300 rounded-sm focus-within:border-brand-primary">
+              <Editor
+                apiKey={process.env.NEXT_PUBLIC_TINY_API}
+                initialValue={content}
+                init={{
+                  branding: false,
+                  skin: "borderless",
+                  content_css: "borderless",
+                  height: 400,
+                  menubar: false,
+                  toolbar:
+                    "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                }}
+                onChange={(e) => setContent(e.target.getContent())}
+              />
+            </div>
+
             <Button type="submit" className="mt-8 ml-auto">
               Enviar Resposta
             </Button>

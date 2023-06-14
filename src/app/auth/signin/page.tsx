@@ -69,7 +69,7 @@ export default function SignInPage() {
           Ainda não possui uma conta?{" "}
           <Link
             href="/auth/signup"
-            className="text-brand-primary hover:underline "
+            className="text-brand-primary hover:underline"
           >
             Registre-se.
           </Link>

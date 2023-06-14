@@ -524,6 +524,14 @@
   dependencies:
     "tslib" "^2.4.0"
 
+"@tinymce/tinymce-react@^4.3.0":
+  "integrity" "sha512-iB4cUsYfcJL4NGuKhqCGYuTmFTje3nPxyPv1HxprTsp/YMGuuiiSNWrv3zwI31QX5Cn8qeq9MrMDnbxuRugHyg=="
+  "resolved" "https://registry.npmjs.org/@tinymce/tinymce-react/-/tinymce-react-4.3.0.tgz"
+  "version" "4.3.0"
+  dependencies:
+    "prop-types" "^15.6.2"
+    "tinymce" "^6.3.1"
+
 "@tootallnate/once@2":
   "integrity" "sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A=="
   "resolved" "https://registry.npmjs.org/@tootallnate/once/-/once-2.0.0.tgz"
@@ -3308,7 +3316,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.8.1":
+"prop-types@^15.6.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -3695,7 +3703,7 @@
     "rc-resize-observer" "^1.0.0"
     "rc-util" "^5.15.0"
 
-"react-dom@*", "react-dom@^17.0.2 || ^18", "react-dom@^18.2.0", "react-dom@>=16.0.0", "react-dom@>=16.11.0", "react-dom@>=16.9.0", "react-dom@18.2.0":
+"react-dom@*", "react-dom@^17.0.2 || ^18", "react-dom@^18.0.0 || ^17.0.1 || ^16.7.0", "react-dom@^18.2.0", "react-dom@>=16.0.0", "react-dom@>=16.11.0", "react-dom@>=16.9.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -3708,7 +3716,7 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
-"react@*", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16.0.0", "react@>=16.11.0", "react@>=16.9.0", "react@18.2.0":
+"react@*", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18", "react@^18.0.0 || ^17.0.1 || ^16.7.0", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16.0.0", "react@>=16.11.0", "react@>=16.9.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
@@ -4318,6 +4326,11 @@
   dependencies:
     "globalyzer" "0.1.0"
     "globrex" "^0.1.2"
+
+"tinymce@^6.3.1":
+  "integrity" "sha512-I23hTUhbIyU/HCruy6wpIpOtr8UJhRJjRmJS9DCalN7UxT9iunkkbrcHa0FO9sG4GdMAOmVbZTHFBrgbDPYU6Q=="
+  "resolved" "https://registry.npmjs.org/tinymce/-/tinymce-6.5.0.tgz"
+  "version" "6.5.0"
 
 "tmp@0.2.1":
   "integrity" "sha512-76SUhtfqR2Ijn+xllcI5P1oyannHNHByD80W1q447gU3mp9G9PSpGdWmjUOHRDPiHYacIk66W7ubDTuPF3BEtQ=="
